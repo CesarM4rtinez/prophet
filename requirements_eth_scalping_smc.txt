@@ -1,0 +1,13 @@
+# Dependencias para:
+#   - scalping_eth_analisis_tecnico.ipynb
+#   - zonas_alta_probabilidad_smc_eth.ipynb
+#
+# Instalar con:
+#   pip install -r requirements_eth_scalping_smc.txt
+
+numpy>=2.4.5
+pandas>=3.0.3
+requests>=2.32.5
+ta>=0.11.0
+matplotlib>=3.10.8
+python-dotenv>=1.2.2

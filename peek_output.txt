@@ -1,0 +1,12 @@
+=== Analisis_estadistico_Series_Temporales.ipynb - celdas: 7 ===
+
+=== proyecciones_eth_prophet.ipynb - celdas: 9 ===
+# 📊 Exportar datos predictivos de ETH/USD para Power BI
+# 📈 Visualización Predictiva Reflectiva con IA (animación fija en GIF)
+
+=== N1_PRONOSTICO_PROPHET.ipynb - celdas: 9 ===
+# Pronóstico con Prophet: tendencia diaria y periodicidad horaria Este notebook usa `Prophet` para estimar la tendencia del precio del oro (`GC=F`) y generar pronósticos de los próximos 7 días en dos 
+
+=== proyecciones_direccion_hora.ipynb - celdas: 9 ===
+# Proyecciones con Prophet para Mercados Financieros
+

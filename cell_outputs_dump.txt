@@ -1,0 +1,131 @@
+=== CODE CELL 14 ===
+def analizar_temporalidad(tf_alpaca, tf_binance): |     df, fuente = obtener_velas(SYMBOL_ALPACA, SYMBOL_BINANCE, tf_alpaca, tf_binance, |                
+⚠️  Alpaca no disponible (401 Client Error: Unauthorized for url: https://data.alpaca.markets/v1beta3/crypto/us/bars?symbols=ETH%2FUSD&timeframe=5Min&limit=150&sort=asc). Usando respaldo gratuito: Binance public API...
+✅ 5 minutos  (5m, fuente: Binance (respaldo)): 90 velas, última = 2026-07-27 00:00:00, señal = NEUTRAL (47.4% compra / 52.6% venta)
+⚠️  Alpaca no disponible (401 Client Error: Unauthorized for url: https://data.alpaca.markets/v1beta3/crypto/us/bars?symbols=ETH%2FUSD&timeframe=15Min&limit=150&sort=asc). Usando respaldo gratuito: Binance public API...
+✅ 15 minutos (15m, fuente: Binance (respaldo)): 90 velas, última = 2026-07-27 00:00:00, señal = VENTA (36.9% compra / 63.1% venta)
+⚠️  Alpaca no disponible (401 Client Error: Unauthorized for url: https://data.alpaca.markets/v1beta3/crypto/us/bars?symbols=ETH%2FUSD&timeframe=1Hour&limit=150&sort=asc). Usando respaldo gratuito: Binance public API...
+✅ 1 hora     (1h, fuente: Binance (respaldo)): 90 velas, última = 2026-07-27 00:00:00, señal = NEUTRAL (46.9% compra / 53.1% venta)
+
+
+=== CODE CELL 16 ===
+filas_resumen = [] | for etiqueta, r in resultados.items(): |     u = r["df"].iloc[-1] |     filas_resumen.append({ |         "temporalidad": etiqueta, "fuent
+⚠️ Sin confluencia clara entre temporalidades — se recomienda esperar
+
+                          fuente   precio    señal  prob_compra  prob_venta  \
+temporalidad                                                                  
+5 minutos     Binance (respaldo) 1,952.01  NEUTRAL        47.40       52.60   
+15 minutos    Binance (respaldo) 1,952.06    VENTA        36.90       63.10   
+1 hora        Binance (respaldo) 1,952.06  NEUTRAL        46.90       53.10   
+
+              stop_loss  take_profit_1  take_profit_2  take_profit_3  
+temporalidad                                                          
+5 minutos           NaN            NaN            NaN            NaN  
+15 minutos     1,959.72       1,944.40       1,938.28       1,929.09  
+1 hora              NaN            NaN            NaN            NaN  
+
+=== CODE CELL 18 ===
+def graficar_velas(ax, df, ancho=0.6, color_alcista="tab:green", color_bajista="tab:red"): |     x = np.arange(len(df)) |     colores = np.where(df["close
+<IPython.core.display.Markdown object>
+<Figure size 1200x700 with 2 Axes>
+<IPython.core.display.Markdown object>
+<Figure size 1200x700 with 2 Axes>
+<IPython.core.display.Markdown object>
+<Figure size 1200x700 with 2 Axes>
+
+=== CODE CELL 20 ===
+columnas = ["open", "high", "low", "close", "volume", "score", "prob_compra", "prob_venta", |             "señal", "stop_loss", "take_profit_1", "take_p
+<IPython.core.display.Markdown object>
+                        open     high      low    close   volume  score  \
+timestamp                                                                 
+2026-07-26 16:35:00 1,923.39 1,924.44 1,918.94 1,919.70 1,173.35  -1.69   
+2026-07-26 16:40:00 1,919.70 1,920.66 1,917.81 1,919.59   565.20  -0.06   
+2026-07-26 16:45:00 1,919.59 1,921.80 1,918.14 1,920.87 1,305.38   1.16   
+2026-07-26 16:50:00 1,920.87 1,920.88 1,916.56 1,917.00   937.07  -0.57   
+2026-07-26 16:55:00 1,917.00 1,917.41 1,915.50 1,916.20 1,098.27   1.14   
+...                      ...      ...      ...      ...      ...    ...   
+2026-07-26 23:40:00 1,950.87 1,954.06 1,950.64 1,953.62   443.85   1.86   
+2026-07-26 23:45:00 1,953.62 1,957.11 1,953.19 1,954.58 1,281.96  -1.33   
+2026-07-26 23:50:00 1,954.58 1,957.03 1,953.07 1,954.32   912.49   0.16   
+2026-07-26 23:55:00 1,954.32 1,955.54 1,952.35 1,954.72   860.33   1.75   
+2026-07-27 00:00:00 1,954.72 1,955.42 1,951.95 1,952.01 1,169.17  -0.31   
+
+                     prob_compra  prob_venta    señal  stop_loss  \
+timestamp                                                          
+2026-07-26 16:35:00        36.10       63.90    VENTA   1,924.74   
+2026-07-26 16:40:00        49.50       50.50  NEUTRAL        NaN   
+2026-07-26 16:45:00        59.60       40.40  NEUTRAL        NaN   
+2026-07-26 16:50:00        45.20       54.80  NEUTRAL        NaN   
+2026-07-26 16:55:00        59.50       40.50  NEUTRAL        NaN   
+...                          ...         ...      ...        ...   
+2026-07-26 23:40:00        65.10       34.90   COMPRA   1,947.96   
+2026-07-26 23:45:00        39.00       61.00    VENTA   1,960.18   
+2026-07-26 23:50:00        51.40       48.60  NEUTRAL        NaN   
+2026-07-26 23:55:00        64.30       35.70   COMPRA   1,949.31   
+2026-07-27 00:00:00        47.40       52.60  NEUTRAL        NaN   
+
+                     take_profit_1  take_profit_2  take_profit_3  
+timestamp                                                         
+2026-
+<IPython.core.display.Markdown object>
+                        open     high      low    close    volume  score  \
+timestamp                                                                  
+2026-07-26 01:45:00 1,879.45 1,880.00 1,877.81 1,878.68    411.72   0.64   
+2026-07-26 02:00:00 1,878.67 1,879.49 1,877.06 1,879.49    398.57   1.68   
+2026-07-26 02:15:00 1,879.49 1,880.39 1,878.01 1,879.29    399.86   0.19   
+2026-07-26 02:30:00 1,879.29 1,879.69 1,877.43 1,878.23    354.79   1.04   
+2026-07-26 02:45:00 1,878.23 1,881.65 1,878.23 1,880.97    381.86   0.94   
+...                      ...      ...      ...      ...       ...    ...   
+2026-07-26 23:00:00 1,949.81 1,967.36 1,949.81 1,957.24 12,737.08   0.61   
+2026-07-26 23:15:00 1,957.23 1,962.19 1,952.73 1,953.79  3,825.21  -0.56   
+2026-07-26 23:30:00 1,953.80 1,954.06 1,945.99 1,953.62  5,622.78  -0.60   
+2026-07-26 23:45:00 1,953.62 1,957.11 1,952.35 1,954.72  3,054.78   1.28   
+2026-07-27 00:00:00 1,954.72 1,955.42 1,951.95 1,952.06  1,169.25  -1.59   
+
+                     prob_compra  prob_venta    señal  stop_loss  \
+timestamp                                                          
+2026-07-26 01:45:00        55.40       44.60  NEUTRAL        NaN   
+2026-07-26 02:00:00        63.80       36.20   COMPRA   1,876.35   
+2026-07-26 02:15:00        51.60       48.40  NEUTRAL        NaN   
+2026-07-26 02:30:00        58.70       41.30  NEUTRAL        NaN   
+2026-07-26 02:45:00        57.80       42.20  NEUTRAL        NaN   
+...                          ...         ...      ...        ...   
+2026-07-26 23:00:00        55.20       44.80  NEUTRAL        NaN   
+2026-07-26 23:15:00        45.30       54.70  NEUTRAL        NaN   
+2026-07-26 23:30:00        45.00       55.00  NEUTRAL        NaN   
+2026-07-26 23:45:00        60.60       39.40   COMPRA   1,946.80   
+2026-07-27 00:00:00        36.90       63.10    VENTA   1,959.72   
+
+                     take_profit_1  take_profit_2  take_profit_3  
+timestamp                                                  
+<IPython.core.display.Markdown object>
+                        open     high      low    close    volume  score  \
+timestamp                                                                  
+2026-07-23 07:00:00 1,925.39 1,925.39 1,912.60 1,915.65 15,074.18  -0.15   
+2026-07-23 08:00:00 1,915.65 1,927.41 1,914.44 1,926.54  6,170.38   1.66   
+2026-07-23 09:00:00 1,926.54 1,931.66 1,923.40 1,924.36  9,981.41  -1.10   
+2026-07-23 10:00:00 1,924.36 1,930.43 1,922.13 1,928.14  4,239.39   1.40   
+2026-07-23 11:00:00 1,928.15 1,929.08 1,924.63 1,926.04  5,003.25   0.27   
+...                      ...      ...      ...      ...       ...    ...   
+2026-07-26 20:00:00 1,914.21 1,914.56 1,911.14 1,913.80  2,328.09   1.31   
+2026-07-26 21:00:00 1,913.79 1,930.00 1,913.79 1,925.91  8,394.04   1.35   
+2026-07-26 22:00:00 1,925.91 1,953.03 1,925.91 1,949.81 23,344.93   0.21   
+2026-07-26 23:00:00 1,949.81 1,967.36 1,945.99 1,954.72 25,239.85  -1.01   
+2026-07-27 00:00:00 1,954.72 1,955.42 1,951.95 1,952.06  1,169.26  -0.37   
+
+                     prob_compra  prob_venta    señal  stop_loss  \
+timestamp                                                          
+2026-07-23 07:00:00        48.70       51.30  NEUTRAL        NaN   
+2026-07-23 08:00:00        63.60       36.40   COMPRA   1,912.47   
+2026-07-23 09:00:00        40.90       59.10  NEUTRAL        NaN   
+2026-07-23 10:00:00        61.60       38.40   COMPRA   1,914.64   
+2026-07-23 11:00:00        52.30       47.70  NEUTRAL        NaN   
+...                          ...         ...      ...        ...   
+2026-07-26 20:00:00        60.90       39.10   COMPRA   1,905.00   
+2026-07-26 21:00:00        61.20       38.80   COMPRA   1,916.35   
+2026-07-26 22:00:00        51.80       48.20  NEUTRAL        NaN   
+2026-07-26 23:00:00        41.50       58.50  NEUTRAL        NaN   
+2026-07-27 00:00:00        46.90       53.10  NEUTRAL        NaN   
+
+                     take_profit_1  take_profit_2  take_profit_3  
+timestamp                                                  

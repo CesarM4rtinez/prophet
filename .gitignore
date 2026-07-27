@@ -2,6 +2,10 @@
 v/
 venv/
 .venv/
+env/
+
+# Secretos / claves de API
+.env
 
 # Python
 __pycache__/
